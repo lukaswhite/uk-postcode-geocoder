@@ -6,6 +6,8 @@ In simple terms, that means you can obtain the latitude and longitude of a postc
 
 Data comes from the Office for National Statistics Postcode Directory, and is stored in an SQLite database for blazing fast lookups.
 
+If you want to provide it as a self-hosted web service, you might find [this repository](https://github.com/lukaswhite/uk-postcode-web-service) useful.
+
 ## A Note about Geocoding UK postcodes
 
 There are a few different ways of geocoding postcodes, each with their own pros and cons; and indeed there is a key limitation to this library. That's the fact that the data set is not 100% complete. It's very comprehensive; there are currently over 2.6 million postcodes in it. However, PAF &mdash; that's the official data set from the Royal Mail &mdash; licenses are very expensive.
