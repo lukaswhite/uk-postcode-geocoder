@@ -1,0 +1,6 @@
+vendor/
+log/
+composer.lock
+.DS_Store
+data/
+database/
