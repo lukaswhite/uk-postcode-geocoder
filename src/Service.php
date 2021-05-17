@@ -8,6 +8,7 @@ use Lukaswhite\UkPostcodeGeocoder\Exceptions\DuplicatePostcodeException;
 use Lukaswhite\UkPostcodeGeocoder\Exceptions\InvalidPostcodeException;
 use Lukaswhite\UkPostcode\UkPostcode;
 use Medoo\Medoo;
+use phpDocumentor\Reflection\Types\String_;
 
 /**
  * Class Service
@@ -59,7 +60,7 @@ class Service
         ]);
 
         if ( $result ) {
-            return new Coordinate( $result[ 'latitude' ], $result[ 'longitude' ] );
+            return new Coordinate( floatval($result['latitude']), floatval($result['longitude']) );
         }
 
         return null;
@@ -128,6 +129,25 @@ class Service
         );
 
         return $this;
+    }
+
+    /**
+     * Get a random postcode
+     *
+     * @return string
+     */
+    public function random(): string
+    {
+        $result = $this->database->rand(
+            'postcodes',
+            [
+                'postcode'
+            ],
+            [
+                'LIMIT' => 1
+            ]
+        );
+        return $result[0]['postcode'];
     }
 
     /**

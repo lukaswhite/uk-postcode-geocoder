@@ -82,6 +82,25 @@ class ServiceTest extends \PHPUnit\Framework\TestCase
         unlink( $filepath );
     }
 
+    public function testRandom()
+    {
+        $filename = sprintf( 'pc_%s.sqlite', uniqid( ) );
+        $filepath = sprintf( '%s/%s', sys_get_temp_dir(), $filename );
+
+        $provisioner = new \Lukaswhite\UkPostcodeGeocoder\Provisioner(
+            sys_get_temp_dir( ),
+            __DIR__ . '/fixtures/ONSPD_AUG_2018_UK.csv',
+            $filename,
+            true
+        );
+        $provisioner->run( );
+        $this->assertFileExists( $filepath );
+
+        $postcodes = new Service( sys_get_temp_dir( ), $filename );
+        $postcode = $postcodes->random();
+        $this->assertTrue(is_string($postcode));
+    }
+
     public function testAdd( )
     {
         $filename = sprintf( 'pc_%s.sqlite', uniqid( ) );
