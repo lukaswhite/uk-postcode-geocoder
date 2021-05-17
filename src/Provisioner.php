@@ -1,6 +1,6 @@
 <?php
 
-namespace Lukaswhite\Postcodes;
+namespace Lukaswhite\UkPostcodeGeocoder;
 
 use League\Csv\Reader;
 use League\Csv\Statement;
@@ -228,7 +228,7 @@ class Provisioner
         $this->displayMessage( sprintf( 'Importing %d postcodes', $total ) );
 
         // Populate the postcodes table
-        $reader = Reader::createFromPath( $this->csvFilepath )->setHeaderOffset( 0 );
+        $reader = Reader::createFromPath( $this->csvFilepath );
 
         do {
 
@@ -245,9 +245,9 @@ class Provisioner
             foreach ( $records as $record ) {
 
                 $rows[ ] = [
-                    'postcode'      =>  $record['pcds'],
-                    'latitude'      =>  $record['lat'],
-                    'longitude'     =>  $record['long'],
+                    'postcode'      =>  $record[0],
+                    'latitude'      =>  $record[7],
+                    'longitude'     =>  $record[8],
                 ];
             }
 

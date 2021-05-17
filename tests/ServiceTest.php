@@ -2,14 +2,14 @@
 
 use Lukaswhite\UkPostcodeGeocoder\Service;
 
-class PostcodesTest extends \PHPUnit\Framework\TestCase
+class ServiceTest extends \PHPUnit\Framework\TestCase
 {
     public function testGet( )
     {
         $filename = sprintf( 'pc_%s.sqlite', uniqid( ) );
         $filepath = sprintf( '%s/%s', sys_get_temp_dir(), $filename );
 
-        $provisioner = new \Lukaswhite\Postcodes\Provisioner(
+        $provisioner = new \Lukaswhite\UkPostcodeGeocoder\Provisioner(
             sys_get_temp_dir( ),
             __DIR__ . '/fixtures/ONSPD_AUG_2018_UK.csv',
             $filename,
@@ -51,7 +51,7 @@ class PostcodesTest extends \PHPUnit\Framework\TestCase
         $filename = sprintf( 'pc_%s.sqlite', uniqid( ) );
         $filepath = sprintf( '%s/%s', sys_get_temp_dir(), $filename );
 
-        $provisioner = new \Lukaswhite\Postcodes\Provisioner(
+        $provisioner = new \Lukaswhite\UkPostcodeGeocoder\Provisioner(
             sys_get_temp_dir( ),
             __DIR__ . '/fixtures/ONSPD_AUG_2018_UK.csv',
             $filename,
@@ -87,7 +87,7 @@ class PostcodesTest extends \PHPUnit\Framework\TestCase
         $filename = sprintf( 'pc_%s.sqlite', uniqid( ) );
         $filepath = sprintf( '%s/%s', sys_get_temp_dir(), $filename );
 
-        $provisioner = new \Lukaswhite\Postcodes\Provisioner(
+        $provisioner = new \Lukaswhite\UkPostcodeGeocoder\Provisioner(
             sys_get_temp_dir( ),
             __DIR__ . '/fixtures/ONSPD_AUG_2018_UK.csv',
             $filename,
@@ -109,15 +109,13 @@ class PostcodesTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals( -0.127695, $coordinates->getLongitude( ) );
     }
 
-    /**
-     * @expectedException \Lukaswhite\UkPostcodeGeocoder\Exceptions\InvalidPostcodeException
-     */
     public function testAddWithInvalidPostcodeThrowsException( )
     {
+        $this->expectException(\Lukaswhite\UkPostcodeGeocoder\Exceptions\InvalidPostcodeException::class);
         $filename = sprintf( 'pc_%s.sqlite', uniqid( ) );
         $filepath = sprintf( '%s/%s', sys_get_temp_dir(), $filename );
 
-        $provisioner = new \Lukaswhite\Postcodes\Provisioner(
+        $provisioner = new \Lukaswhite\UkPostcodeGeocoder\Provisioner(
             sys_get_temp_dir( ),
             __DIR__ . '/fixtures/ONSPD_AUG_2018_UK.csv',
             $filename,
@@ -134,15 +132,13 @@ class PostcodesTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @expectedException \Lukaswhite\UkPostcodeGeocoder\Exceptions\DuplicatePostcodeException
-     */
     public function testAddExistingThrowsException( )
     {
+        $this->expectException(\Lukaswhite\UkPostcodeGeocoder\Exceptions\DuplicatePostcodeException::class);
         $filename = sprintf( 'pc_%s.sqlite', uniqid( ) );
         $filepath = sprintf( '%s/%s', sys_get_temp_dir(), $filename );
 
-        $provisioner = new \Lukaswhite\Postcodes\Provisioner(
+        $provisioner = new \Lukaswhite\UkPostcodeGeocoder\Provisioner(
             sys_get_temp_dir( ),
             __DIR__ . '/fixtures/ONSPD_AUG_2018_UK.csv',
             $filename,
@@ -159,11 +155,9 @@ class PostcodesTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @expectedException \Lukaswhite\UkPostcodeGeocoder\Exceptions\DatabaseDoesNotExistException
-     */
     public function testThrowsExceptionIfDatabaseDoesNotExist( )
     {
+        $this->expectException(\Lukaswhite\UkPostcodeGeocoder\Exceptions\DatabaseDoesNotExistException::class);
         $postcodes = new Service( '/this/directory/does/not/exist' );
     }
 
