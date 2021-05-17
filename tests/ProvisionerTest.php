@@ -10,7 +10,7 @@ class ProvisionerTest extends \PHPUnit\Framework\TestCase
 
         $filepath = sprintf( '%s/%s', sys_get_temp_dir(), $filename );
 
-        $provisioner = new \Lukaswhite\Postcodes\Provisioner(
+        $provisioner = new \Lukaswhite\UkPostcodeGeocoder\Provisioner(
             sys_get_temp_dir( ),
             __DIR__ . '/fixtures/ONSPD_AUG_2018_UK.csv',
             $filename
@@ -36,7 +36,7 @@ class ProvisionerTest extends \PHPUnit\Framework\TestCase
             $directory = sprintf( '%s/%s', sys_get_temp_dir( ), uniqid( ) );
         } while ( file_exists( $directory ) );
 
-        $provisioner = new \Lukaswhite\Postcodes\Provisioner(
+        $provisioner = new \Lukaswhite\UkPostcodeGeocoder\Provisioner(
             $directory,
             __DIR__ . '/fixtures/ONSPD_AUG_2018_UK.csv'
         );
@@ -48,15 +48,12 @@ class ProvisionerTest extends \PHPUnit\Framework\TestCase
 
     }
 
-    /**
-     * @expectedException \Lukaswhite\UkPostcodeGeocoder\Exceptions\DirectoryException
-     * @expectedExceptionMessage The path provided is not a directory
-     */
     public function testExceptionThrownIfDirectoryIsNotDirectory( )
     {
+        $this->expectException(\Lukaswhite\UkPostcodeGeocoder\Exceptions\DirectoryException::class);
         $filename = tempnam( sys_get_temp_dir( ), 'pc_' );
 
-        $provisioner = new \Lukaswhite\Postcodes\Provisioner(
+        $provisioner = new \Lukaswhite\UkPostcodeGeocoder\Provisioner(
             $filename,
             __DIR__ . '/fixtures/ONSPD_AUG_2018_UK.csv'
         );

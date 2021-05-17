@@ -18,5 +18,5 @@ if ( ! file_exists( $argv[ 2 ] ) ) {
     die;
 }
 
-$provisioner = new \Lukaswhite\Postcodes\Provisioner( $argv[ 1 ], $argv[ 2 ] );
+$provisioner = new \Lukaswhite\UkPostcodeGeocoder\Provisioner( $argv[ 1 ], $argv[ 2 ] );
 $provisioner->run( );
